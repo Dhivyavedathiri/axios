@@ -1,0 +1,36 @@
+<!-- Example HTML for displaying user details with a delete icon -->
+<div>
+  <span>User Name: John Doe</span>
+  <span>Email: john@example.com</span>
+  <!-- Add a delete icon -->
+  <button class="delete-icon" onclick="deleteUser(userId)">Delete</button>
+</div>
+// Import Axios in a Node.js environment or include it in your HTML file for browsers
+const axios = require('axios');
+
+// Function to delete a user by _id
+function deleteUser(userId) {
+  // Define the API endpoint (replace 'your-api-endpoint' with the actual endpoint)
+  const apiEndpoint = `https://crudcrud.com/api/your-api-endpoint/${userId}`;
+
+  // Make a DELETE request
+  axios.delete(apiEndpoint)
+    .then(response => {
+      console.log('DELETE Request Successful:', response.data);
+      
+      // Remove the user details from the website on successful deletion
+      removeUserFromUI(userId);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+}
+
+// Function to remove the user details from the website
+function removeUserFromUI(userId) {
+  // Find and remove the HTML element corresponding to the deleted user
+  const userElement = document.getElementById(userId);
+  if (userElement) {
+    userElement.remove();
+  }
+}
